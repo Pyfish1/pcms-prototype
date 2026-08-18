@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book appointment — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a class="active" href="appointments.html">Appointments</a>
+      <a href="therapist-schedule.html">Schedule</a>
+      <a href="billing.html">Billing</a>
+      <a href="#">Reports</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> S. Lim · Receptionist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Book new appointment</h1>
+        <p>Search for a customer and select a therapy slot.</p>
+      </div>
+    </div>
+
+    <div class="row row-2" style="margin-bottom:18px;">
+      <div class="field">
+        <label>Customer name</label>
+        <input class="input" placeholder="Search customer...">
+        <div class="muted" style="font-size:12.5px;">Not registered? <a href="register.html">Register new customer</a></div>
+      </div>
+      <div class="field">
+        <label>Service type</label>
+        <select class="input">
+          <option>Sports massage therapy</option>
+          <option>Post-surgery rehabilitation</option>
+          <option>Chiropractic</option>
+          <option>Scoliosis treatment</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row row-3" style="margin-bottom:20px;">
+      <div class="field"><label>Date</label><input class="input" type="date"></div>
+      <div class="field">
+        <label>Time slot</label>
+        <select class="input">
+          <option>9:00 AM</option>
+          <option selected>10:00 AM</option>
+          <option>11:00 AM</option>
+          <option>2:00 PM</option>
+          <option>3:00 PM</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Therapist</label>
+        <select class="input">
+          <option>Dr. Amir Hassan</option>
+          <option>Dr. Priya Nair</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="banner banner-green">
+      <span class="ico"><svg class="icon"><use href="../icons.svg#check"/></svg></span>
+      <span>Dr. Amir Hassan is available at this time.</span>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:22px;">
+      <a class="btn btn-ghost" href="appointments.html">Cancel</a>
+      <a class="btn" href="appointments.html">Confirm booking</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

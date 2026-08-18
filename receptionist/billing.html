@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Billing — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a href="appointments.html">Appointments</a>
+      <a href="therapist-schedule.html">Schedule</a>
+      <a class="active" href="billing.html">Billing</a>
+      <a href="#">Reports</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> S. Lim · Receptionist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Generate invoice</h1>
+        <p>Customer: Rachel Tan · Session: 13 Aug 2026, 11:30 AM</p>
+      </div>
+    </div>
+
+    <table class="data">
+      <thead>
+        <tr><th>Item</th><th class="right">Amount (RM)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Sports massage therapy (60 min)</td><td class="right num">120.00</td></tr>
+        <tr><td class="name">Muscle relief gel</td><td class="right num">25.00</td></tr>
+        <tr><td>Membership discount (10%)</td><td class="right num amt-red">-14.50</td></tr>
+      </tbody>
+    </table>
+
+    <div class="invoice-summary">
+      <div class="line"><span>Subtotal</span><span>RM 145.00</span></div>
+      <div class="line total"><span>Total</span><span>RM 130.50</span></div>
+    </div>
+
+    <div style="display:flex; align-items:flex-end; margin-top:20px; gap:10px;">
+      <div class="field" style="width:230px;">
+        <label>Payment method</label>
+        <select class="input">
+          <option>Credit / debit card</option>
+          <option>Cash</option>
+          <option>E-wallet</option>
+        </select>
+      </div>
+      <div class="spacer" style="margin-left:auto;"></div>
+      <a class="btn btn-ghost" href="#"><svg class="icon"><use href="../icons.svg#printer"/></svg> Print</a>
+      <a class="btn" href="appointments.html">Confirm payment</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

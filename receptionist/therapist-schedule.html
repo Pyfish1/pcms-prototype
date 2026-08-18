@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Therapist schedule — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a href="appointments.html">Appointments</a>
+      <a class="active" href="therapist-schedule.html">Schedule</a>
+      <a href="billing.html">Billing</a>
+      <a href="#">Reports</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> S. Lim · Receptionist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Therapist schedule — week of 11 Aug</h1>
+      </div>
+      <div class="spacer"></div>
+      <select class="input" style="width:190px;">
+        <option>All therapists</option>
+        <option>Dr. Amir Hassan</option>
+        <option>Dr. Priya Nair</option>
+      </select>
+    </div>
+
+    <table class="sched">
+      <thead>
+        <tr><th class="corner"></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="time">10:00 AM</td>
+          <td><span class="slot slot-booked two">A. Hassan<br>J. Lee</span></td>
+          <td></td>
+          <td><span class="slot slot-green two">P. Nair<br>M. Wong</span></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td class="time">11:30 AM</td>
+          <td></td>
+          <td><span class="slot slot-booked two">A. Hassan<br>R. Tan</span></td>
+          <td></td><td></td>
+          <td><span class="slot slot-green two">P. Nair<br>C. Ooi</span></td>
+        </tr>
+        <tr>
+          <td class="time">2:00 PM</td>
+          <td></td><td></td>
+          <td><span class="slot slot-booked two">A. Hassan<br>K. Devi</span></td>
+          <td></td><td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <span><span class="dot dot-blue"></span>Dr. Amir Hassan</span>
+      <span><span class="dot dot-green"></span>Dr. Priya Nair</span>
+    </div>
+  </main>
+</div>
+</body>
+</html>
