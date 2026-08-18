@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customers — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a class="active" href="customers.html">Customers</a>
+      <a href="appointments.html">Appointments</a>
+      <a href="#">Billing</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> S. Lim · Receptionist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Search customer record</h1>
+        <p>Find an existing customer by name or contact number.</p>
+      </div>
+      <div class="spacer"></div>
+      <a class="btn btn-ghost" href="register.html"><svg class="icon"><use href="../icons.svg#plus"/></svg> Register new customer</a>
+    </div>
+
+    <div class="searchbar">
+      <input class="input" placeholder="Search by name or contact number...">
+      <button class="icon-btn"><svg class="icon"><use href="../icons.svg#search"/></svg></button>
+    </div>
+
+    <table class="data">
+      <thead>
+        <tr><th>Name</th><th>Contact</th><th>Last visit</th><th>Total sessions</th><th class="right"></th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Rachel Tan</td><td>012-345 6789</td><td>13 Aug 2026</td><td class="num">8</td><td class="right"><a href="#">View profile</a></td></tr>
+        <tr><td class="name">Marcus Wong</td><td>016-778 2231</td><td>10 Aug 2026</td><td class="num">3</td><td class="right"><a href="#">View profile</a></td></tr>
+        <tr><td class="name">Chloe Ooi</td><td>019-902 4471</td><td>2 Aug 2026</td><td class="num">1</td><td class="right"><a href="#">View profile</a></td></tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCMS — HoneyBee Physiotherapy</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="login-wrap">
+  <form class="login-card" id="loginForm">
+    <div class="login-logo"><span class="brand-icon"><svg class="icon"><use href="icons.svg#stethoscope"/></svg></span></div>
+    <h1>HoneyBee Physiotherapy</h1>
+    <div class="sub">Staff portal</div>
+
+    <div class="field">
+      <label for="u">Username</label>
+      <input class="input" id="u" placeholder="e.g. receptionist" autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="p">Password</label>
+      <input class="input" id="p" type="password" placeholder="Enter your password" autocomplete="current-password">
+    </div>
+    <div class="forgot"><a href="#">Forgot password?</a></div>
+
+    <div class="login-error" id="loginErr">Invalid username or password.</div>
+
+    <button class="btn btn-full" type="submit">Log in</button>
+
+    <div class="login-sep">role-based access</div>
+    <div class="role-links">
+      <a href="#" data-user="receptionist"><svg class="icon"><use href="icons.svg#user"/></svg> Receptionist</a>
+      <a href="#" data-user="therapist"><svg class="icon"><use href="icons.svg#gear"/></svg> Therapist</a>
+      <a href="#" data-user="owner"><svg class="icon"><use href="icons.svg#gear"/></svg> Owner</a>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Prototype auth — client-side only. Password for every account is "password".
+  var routes = {
+    owner:        'owner/dashboard.html',
+    therapist:    'therapist/schedule.html',
+    receptionist: 'receptionist/customers.html',
+    customer:     'receptionist/customers.html'   // alias
+  };
+  var form = document.getElementById('loginForm');
+  var err  = document.getElementById('loginErr');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var u = document.getElementById('u').value.trim().toLowerCase();
+    var p = document.getElementById('p').value;
+    if (routes[u] && p === 'password') {
+      location.href = routes[u];
+    } else {
+      err.style.display = 'block';
+    }
+  });
+  document.querySelectorAll('[data-user]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('u').value = a.dataset.user;
+      document.getElementById('p').focus();
+    });
+  });
+</script>
+</body>
+</html>

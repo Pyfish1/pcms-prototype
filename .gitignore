@@ -1,0 +1,6 @@
+# Local mockup source images — not part of the site
+Mockups/
+
+# OS / editor cruft
+Thumbs.db
+.DS_Store

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Treatment record — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a href="schedule.html">My schedule</a>
+      <a href="#">Customers</a>
+      <a class="active" href="treatment-record.html">Treatment records</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> Dr. Amir Hassan · Therapist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Treatment record — Rachel Tan</h1>
+        <p>Session on 13 Aug 2026, 9:00 AM · Sports massage therapy</p>
+      </div>
+      <div class="spacer"></div>
+      <a class="btn btn-ghost" href="progress.html">Progress</a>
+      <a class="btn btn-ghost" href="medication.html" style="margin-left:8px;">Prescribe medication</a>
+    </div>
+
+    <div class="split">
+      <div>
+        <div class="field" style="margin-bottom:18px;">
+          <label>Diagnosis</label>
+          <input class="input" placeholder="e.g. Lower back muscle strain">
+        </div>
+        <div class="field" style="margin-bottom:18px;">
+          <label>Clinical observation / notes</label>
+          <textarea class="input" rows="4" placeholder="Describe the session findings..."></textarea>
+        </div>
+        <div class="row row-2" style="margin-bottom:18px;">
+          <div class="field"><label>Pain level (0–10)</label><input class="input" type="number" min="0" max="10" value="4"></div>
+          <div class="field"><label>Range of motion (°)</label><input class="input" type="number" value="65"></div>
+        </div>
+        <div class="field" style="margin-bottom:18px;">
+          <label>Treatment goal</label>
+          <input class="input" placeholder="e.g. Restore full mobility">
+        </div>
+        <div class="field" style="margin-bottom:22px;">
+          <label>Target sessions</label>
+          <input class="input" type="number" placeholder="8">
+        </div>
+        <button class="btn">Save treatment record</button>
+      </div>
+
+      <div>
+        <h2 class="section" style="margin-top:0;">Previous treatment history</h2>
+        <div class="history-card">
+          <div class="hc-head"><span>6 Aug 2026</span><span>Pain: 6/10</span></div>
+          <div class="hc-body">Mild improvement in lower back flexibility, continued strain noted.</div>
+        </div>
+        <div class="history-card">
+          <div class="hc-head"><span>30 Jul 2026</span><span>Pain: 7/10</span></div>
+          <div class="hc-body">Initial assessment, muscle stiffness in lumbar region.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

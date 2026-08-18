@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prescribe medication — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a href="schedule.html">My schedule</a>
+      <a href="#">Customers</a>
+      <a class="active" href="treatment-record.html">Treatment records</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> Dr. Amir Hassan · Therapist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Prescribe medication — Rachel Tan</h1>
+        <p>Session on 13 Aug 2026 · Sports massage therapy</p>
+      </div>
+      <div class="spacer"></div>
+      <span class="tag">Feature: Medication Inventory Management</span>
+    </div>
+
+    <div class="row" style="grid-template-columns: 1.4fr 1fr 1fr auto; align-items:end;">
+      <div class="field">
+        <label>Medication</label>
+        <select class="input">
+          <option>Muscle relief gel</option>
+          <option>Anti-inflammatory tablet</option>
+          <option>Pain relief spray</option>
+        </select>
+      </div>
+      <div class="field"><label>Dosage</label><input class="input" placeholder="e.g. 2x daily"></div>
+      <div class="field"><label>Quantity</label><input class="input" type="number" value="1"></div>
+      <button class="btn">Add</button>
+    </div>
+
+    <table class="data" style="margin-top:18px;">
+      <thead>
+        <tr><th>Medication</th><th>Dosage</th><th>Qty</th><th class="right">Subtotal (RM)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Muscle relief gel</td><td>Apply 2x daily</td><td class="num">1</td><td class="right num">25.00</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section">Medication inventory status</h2>
+    <table class="data">
+      <thead>
+        <tr><th>Item</th><th>Stock</th><th>Reorder level</th><th class="right">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Muscle relief gel</td><td class="num">34</td><td class="num">15</td><td class="right"><span class="pill pill-green">OK</span></td></tr>
+        <tr><td class="name">Anti-inflammatory tablet</td><td class="num">8</td><td class="num">10</td><td class="right"><span class="pill pill-red">Low stock</span></td></tr>
+        <tr><td class="name">Pain relief spray</td><td class="num">21</td><td class="num">10</td><td class="right"><span class="pill pill-green">OK</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="banner banner-red">
+      <span class="ico"><svg class="icon"><use href="../icons.svg#warning"/></svg></span>
+      <span>Low stock alert sent to owner: Anti-inflammatory tablet has fallen below its reorder level.</span>
+    </div>
+  </main>
+</div>
+</body>
+</html>

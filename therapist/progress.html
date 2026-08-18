@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress tracking — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a href="schedule.html">My schedule</a>
+      <a href="#">Customers</a>
+      <a class="active" href="treatment-record.html">Treatment records</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> Dr. Amir Hassan · Therapist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Progress tracking — Rachel Tan</h1>
+        <p>Goal: Restore full mobility · Target 8 sessions · Session 5 of 8</p>
+      </div>
+      <div class="spacer"></div>
+      <span class="tag">Feature: Progress Tracking Dashboard</span>
+    </div>
+
+    <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat-card">
+        <div class="label">Current pain level</div>
+        <div class="value value-green">4 / 10</div>
+        <div class="delta delta-green">↓ down from 7</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Range of motion</div>
+        <div class="value value-green">78°</div>
+        <div class="delta delta-green">↑ up from 55°</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Sessions completed</div>
+        <div class="value">5 / 8</div>
+        <div class="delta muted">On track</div>
+      </div>
+    </div>
+
+    <h2 class="section">Progress over sessions</h2>
+    <div class="chart-box">
+      <svg viewBox="0 0 640 300" role="img" aria-label="Line chart of pain level and range of motion over 5 sessions">
+        <!-- gridlines + left/right ticks -->
+        <g stroke="#26262c" stroke-width="1">
+          <line x1="46" y1="20"  x2="594" y2="20"/>
+          <line x1="46" y1="68"  x2="594" y2="68"/>
+          <line x1="46" y1="116" x2="594" y2="116"/>
+          <line x1="46" y1="164" x2="594" y2="164"/>
+          <line x1="46" y1="212" x2="594" y2="212"/>
+          <line x1="46" y1="260" x2="594" y2="260"/>
+        </g>
+        <g fill="#8b8b95" font-size="11" text-anchor="end">
+          <text x="38" y="24">10</text><text x="38" y="72">8</text><text x="38" y="120">6</text>
+          <text x="38" y="168">4</text><text x="38" y="216">2</text><text x="38" y="264">0</text>
+        </g>
+        <g fill="#8b8b95" font-size="11" text-anchor="start">
+          <text x="602" y="24">100</text><text x="602" y="72">80</text><text x="602" y="120">60</text>
+          <text x="602" y="168">40</text><text x="602" y="216">20</text><text x="602" y="264">0</text>
+        </g>
+        <g fill="#8b8b95" font-size="11" text-anchor="middle">
+          <text x="46" y="280">Session 1</text><text x="183" y="280">Session 2</text>
+          <text x="320" y="280">Session 3</text><text x="457" y="280">Session 4</text>
+          <text x="594" y="280">Session 5</text>
+        </g>
+        <!-- ROM (blue, rising) -->
+        <polyline fill="none" stroke="#4d8cf5" stroke-width="2.5"
+          points="46,128 183,116 320,104 457,87 594,73"/>
+        <g fill="#4d8cf5">
+          <rect x="42" y="124" width="8" height="8"/><rect x="179" y="112" width="8" height="8"/>
+          <rect x="316" y="100" width="8" height="8"/><rect x="453" y="83" width="8" height="8"/>
+          <rect x="590" y="69" width="8" height="8"/>
+        </g>
+        <!-- Pain (red, falling) -->
+        <polyline fill="none" stroke="#ef6b6b" stroke-width="2.5"
+          points="46,92 183,111 320,116 457,140 594,164"/>
+        <g fill="#ef6b6b">
+          <rect x="42" y="88" width="8" height="8"/><rect x="179" y="107" width="8" height="8"/>
+          <rect x="316" y="112" width="8" height="8"/><rect x="453" y="136" width="8" height="8"/>
+          <rect x="590" y="160" width="8" height="8"/>
+        </g>
+        <!-- axis titles -->
+        <text x="14" y="150" fill="#8b8b95" font-size="11" text-anchor="middle" transform="rotate(-90 14 150)">Pain level</text>
+        <text x="628" y="150" fill="#8b8b95" font-size="11" text-anchor="middle" transform="rotate(90 628 150)">ROM (°)</text>
+      </svg>
+    </div>
+    <div class="legend" style="justify-content:center;">
+      <span><span class="dot" style="background:#ef6b6b"></span>Pain level (0-10)</span>
+      <span><span class="dot" style="background:#4d8cf5"></span>Range of motion (°)</span>
+    </div>
+  </main>
+</div>
+</body>
+</html>

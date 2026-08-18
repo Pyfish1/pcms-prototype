@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Schedule — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a class="active" href="schedule.html">My schedule</a>
+      <a href="#">Customers</a>
+      <a href="treatment-record.html">Treatment records</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> Dr. Amir Hassan · Therapist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>My schedule — week of 11 Aug</h1>
+        <p>View assigned sessions or block a time slot as unavailable.</p>
+      </div>
+      <div class="spacer"></div>
+      <a class="btn btn-ghost" href="#block"><svg class="icon"><use href="../icons.svg#calendar"/></svg> Block time slot</a>
+    </div>
+
+    <table class="sched">
+      <thead>
+        <tr><th class="corner">Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="time">9:00 AM</td>
+          <td><span class="slot slot-booked">R. Tan</span></td>
+          <td></td><td></td>
+          <td><span class="slot slot-blocked">Blocked</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time">10:00 AM</td>
+          <td><span class="slot slot-booked">M. Wong</span></td>
+          <td></td>
+          <td><span class="slot slot-booked">J. Lee</span></td>
+          <td><span class="slot slot-blocked">Blocked</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="time">2:00 PM</td>
+          <td></td>
+          <td><span class="slot slot-booked">K. Devi</span></td>
+          <td></td><td></td><td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <span><span class="dot dot-blue"></span>Booked session</span>
+      <span><span class="dot dot-red"></span>Blocked / leave</span>
+    </div>
+
+    <hr class="divider">
+
+    <h2 class="section" id="block">Block a time slot</h2>
+    <div class="row" style="grid-template-columns: 1fr 1fr 1fr auto; align-items:end;">
+      <div class="field"><label>Date</label><input class="input" type="date"></div>
+      <div class="field"><label>From</label><input class="input" type="time"></div>
+      <div class="field"><label>To</label><input class="input" type="time"></div>
+      <button class="btn">Block</button>
+    </div>
+  </main>
+</div>
+</body>
+</html>

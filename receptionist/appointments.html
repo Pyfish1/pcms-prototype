@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appointments — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a class="active" href="appointments.html">Appointments</a>
+      <a href="customers.html">Customers</a>
+      <a href="#">Billing</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> S. Lim · Receptionist</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Today's appointments — 13 Aug 2026</h1>
+        <p>Confirm pending bookings or check in arriving customers.</p>
+      </div>
+      <div class="spacer"></div>
+      <span class="chip chip-amber">3 pending</span>
+      <span class="chip chip-blue" style="margin-left:8px;">5 confirmed</span>
+    </div>
+
+    <table class="data">
+      <thead>
+        <tr><th>Time</th><th>Customer</th><th>Therapist</th><th>Status</th><th class="right"></th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>9:00 AM</strong></td><td class="name">Rachel Tan</td><td>Dr. Amir Hassan</td>
+          <td><span class="pill pill-amber">Pending</span></td>
+          <td class="right"><button class="btn">Confirm</button></td>
+        </tr>
+        <tr>
+          <td><strong>10:00 AM</strong></td><td class="name">Marcus Wong</td><td>Dr. Amir Hassan</td>
+          <td><span class="pill pill-green">Confirmed</span></td>
+          <td class="right"><button class="btn btn-dark">Mark arrived</button></td>
+        </tr>
+        <tr>
+          <td><strong>11:30 AM</strong></td><td class="name">Chloe Ooi</td><td>Dr. Priya Nair</td>
+          <td><span class="pill pill-grey">Arrived</span></td>
+          <td class="right chk">Checked in 11:24 AM</td>
+        </tr>
+        <tr>
+          <td><strong>2:00 PM</strong></td><td class="name">Kavitha Devi</td><td>Dr. Amir Hassan</td>
+          <td><span class="pill pill-amber">Pending</span></td>
+          <td class="right"><button class="btn">Confirm</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="banner banner-blue">
+      <span class="ico"><svg class="icon"><use href="../icons.svg#bell"/></svg></span>
+      <span>Confirming a booking automatically sends an appointment reminder to the customer and updates the therapist's schedule.</span>
+    </div>
+  </main>
+</div>
+</body>
+</html>

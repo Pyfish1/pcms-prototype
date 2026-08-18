@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staff accounts — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a class="active" href="staff.html">Staff accounts</a>
+      <a href="#">Services</a>
+      <a href="#">Reports</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> Mr. Jared · Owner</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div><h1>Staff accounts</h1></div>
+      <div class="spacer"></div>
+      <a class="btn" href="#"><svg class="icon"><use href="../icons.svg#plus"/></svg> Add staff</a>
+    </div>
+
+    <table class="data">
+      <thead>
+        <tr><th>Name</th><th>Role</th><th>Status</th><th class="right"></th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Dr. Amir Hassan</td><td>Therapist</td><td><span class="pill pill-green">Active</span></td><td class="right"><a href="#">Edit</a></td></tr>
+        <tr><td class="name">Dr. Priya Nair</td><td>Therapist</td><td><span class="pill pill-green">Active</span></td><td class="right"><a href="#">Edit</a></td></tr>
+        <tr><td class="name">Sarah Lim</td><td>Receptionist</td><td><span class="pill pill-grey">Deactivated</span></td><td class="right"><a href="#">Edit</a></td></tr>
+      </tbody>
+    </table>
+
+    <div class="page-head" style="margin-top:34px;">
+      <div><h1 style="font-size:19px;">Physiotherapy service list</h1></div>
+      <div class="spacer"></div>
+      <a class="btn" href="#"><svg class="icon"><use href="../icons.svg#plus"/></svg> Add service</a>
+    </div>
+
+    <table class="data">
+      <thead>
+        <tr><th>Service</th><th>Charge (RM)</th><th>Duration</th><th class="right"></th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Sports massage therapy</td><td class="num">120.00</td><td>60 min</td><td class="right"><a href="#">Edit</a></td></tr>
+        <tr><td class="name">Post-surgery rehabilitation</td><td class="num">150.00</td><td>75 min</td><td class="right"><a href="#">Edit</a></td></tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>
