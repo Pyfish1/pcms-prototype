@@ -285,3 +285,36 @@ table.sched td.time { color: var(--muted); font-size: 13.5px; text-align: left; 
   nav.nav { gap: 14px; font-size: 13px; }
   .topbar { flex-wrap: wrap; }
 }
+
+/* ---- Toast notifications ---- */
+.pcms-toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 20px);
+  background: var(--panel-2); color: var(--text);
+  border: 1px solid var(--border); border-left: 3px solid var(--blue);
+  border-radius: 10px; padding: 12px 18px; font-size: 14px; font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5); max-width: 90vw;
+  opacity: 0; pointer-events: none; transition: opacity .22s ease, transform .22s ease;
+  z-index: 1000;
+}
+.pcms-toast.show { opacity: 1; transform: translate(-50%, 0); }
+.pcms-toast-green { border-left-color: var(--green); }
+.pcms-toast-red { border-left-color: var(--red); }
+
+/* ---- Invoice line-item remove button ---- */
+.linedel {
+  margin-left: 10px; width: 22px; height: 22px; line-height: 1;
+  border: 1px solid var(--border); background: var(--panel-2);
+  color: var(--muted); border-radius: 6px; cursor: pointer;
+  font-size: 15px; vertical-align: middle;
+}
+.linedel:hover { color: var(--red-2); border-color: var(--red); }
+
+/* ---- Print: show only the invoice ---- */
+@media print {
+  body { background: #fff; color: #000; padding: 0; }
+  .topbar, .page-head p, #billActions, .pcms-toast, .linedel { display: none !important; }
+  .app { border: none; max-width: 100%; }
+  table.data td, table.data th { color: #000 !important; border-color: #ccc !important; }
+  .invoice-summary .line, .invoice-summary .line span, .invoice-summary .total span,
+  .amt-red { color: #000 !important; }
+}

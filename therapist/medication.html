@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div class="app">
+<div class="app" data-page="medication">
   <header class="topbar">
     <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
     <nav class="nav">
@@ -30,23 +30,23 @@
 
     <div class="row" style="grid-template-columns: 1.4fr 1fr 1fr auto; align-items:end;">
       <div class="field">
-        <label>Medication</label>
-        <select class="input">
+        <label for="medName">Medication</label>
+        <select class="input" id="medName">
           <option>Muscle relief gel</option>
           <option>Anti-inflammatory tablet</option>
           <option>Pain relief spray</option>
         </select>
       </div>
-      <div class="field"><label>Dosage</label><input class="input" placeholder="e.g. 2x daily"></div>
-      <div class="field"><label>Quantity</label><input class="input" type="number" value="1"></div>
-      <button class="btn">Add</button>
+      <div class="field"><label for="medDose">Dosage</label><input class="input" id="medDose" placeholder="e.g. 2x daily"></div>
+      <div class="field"><label for="medQty">Quantity</label><input class="input" id="medQty" type="number" value="1"></div>
+      <button class="btn" id="medAdd" type="button">Add</button>
     </div>
 
     <table class="data" style="margin-top:18px;">
       <thead>
         <tr><th>Medication</th><th>Dosage</th><th>Qty</th><th class="right">Subtotal (RM)</th></tr>
       </thead>
-      <tbody>
+      <tbody id="medRows">
         <tr><td class="name">Muscle relief gel</td><td>Apply 2x daily</td><td class="num">1</td><td class="right num">25.00</td></tr>
       </tbody>
     </table>
@@ -69,5 +69,6 @@
     </div>
   </main>
 </div>
+<script src="../app.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="login-wrap">
+<div class="login-wrap" data-page="login">
   <form class="login-card" id="loginForm">
     <div class="login-logo"><span class="brand-icon"><svg class="icon"><use href="icons.svg#stethoscope"/></svg></span></div>
     <h1>HoneyBee Physiotherapy</h1>
@@ -21,7 +21,7 @@
       <label for="p">Password</label>
       <input class="input" id="p" type="password" placeholder="Enter your password" autocomplete="current-password">
     </div>
-    <div class="forgot"><a href="#">Forgot password?</a></div>
+    <div class="forgot"><a href="#" id="forgot">Forgot password?</a></div>
 
     <div class="login-error" id="loginErr">Invalid username or password.</div>
 
@@ -64,5 +64,6 @@
     });
   });
 </script>
+<script src="app.js"></script>
 </body>
 </html>

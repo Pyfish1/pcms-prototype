@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div class="app">
+<div class="app" data-page="appointments">
   <header class="topbar">
     <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
     <nav class="nav">
@@ -26,8 +26,8 @@
         <p>Confirm pending bookings or check in arriving customers.</p>
       </div>
       <div class="spacer"></div>
-      <span class="chip chip-amber">3 pending</span>
-      <span class="chip chip-blue" style="margin-left:8px;">5 confirmed</span>
+      <span class="chip chip-amber" id="chipPending">0 pending</span>
+      <span class="chip chip-blue" id="chipConfirmed" style="margin-left:8px;">0 confirmed</span>
       <a class="btn btn-ghost" href="booking.html" style="margin-left:12px;"><svg class="icon"><use href="../icons.svg#plus"/></svg> Book appointment</a>
     </div>
 
@@ -35,28 +35,7 @@
       <thead>
         <tr><th>Time</th><th>Customer</th><th>Therapist</th><th>Status</th><th class="right"></th></tr>
       </thead>
-      <tbody>
-        <tr>
-          <td><strong>9:00 AM</strong></td><td class="name">Rachel Tan</td><td>Dr. Amir Hassan</td>
-          <td><span class="pill pill-amber">Pending</span></td>
-          <td class="right"><button class="btn">Confirm</button></td>
-        </tr>
-        <tr>
-          <td><strong>10:00 AM</strong></td><td class="name">Marcus Wong</td><td>Dr. Amir Hassan</td>
-          <td><span class="pill pill-green">Confirmed</span></td>
-          <td class="right"><button class="btn btn-dark">Mark arrived</button></td>
-        </tr>
-        <tr>
-          <td><strong>11:30 AM</strong></td><td class="name">Chloe Ooi</td><td>Dr. Priya Nair</td>
-          <td><span class="pill pill-grey">Arrived</span></td>
-          <td class="right chk">Checked in 11:24 AM</td>
-        </tr>
-        <tr>
-          <td><strong>2:00 PM</strong></td><td class="name">Kavitha Devi</td><td>Dr. Amir Hassan</td>
-          <td><span class="pill pill-amber">Pending</span></td>
-          <td class="right"><button class="btn">Confirm</button></td>
-        </tr>
-      </tbody>
+      <tbody id="apptRows"></tbody>
     </table>
 
     <div class="banner banner-blue">
@@ -65,5 +44,6 @@
     </div>
   </main>
 </div>
+<script src="../app.js"></script>
 </body>
 </html>

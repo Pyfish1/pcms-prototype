@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div class="app">
+<div class="app" data-page="treatment">
   <header class="topbar">
     <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
     <nav class="nav">
@@ -51,7 +51,7 @@
           <label>Target sessions</label>
           <input class="input" type="number" placeholder="8">
         </div>
-        <button class="btn">Save treatment record</button>
+        <button class="btn" id="saveRecord" type="button">Save treatment record</button>
       </div>
 
       <div>
@@ -68,5 +68,6 @@
     </div>
   </main>
 </div>
+<script src="../app.js"></script>
 </body>
 </html>

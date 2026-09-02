@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div class="app">
+<div class="app" data-page="billing">
   <header class="topbar">
     <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
     <nav class="nav">
@@ -23,7 +23,7 @@
     <div class="page-head">
       <div>
         <h1>Generate invoice</h1>
-        <p>Customer: Rachel Tan · Session: 13 Aug 2026, 11:30 AM</p>
+        <p id="billHead">Customer: Rachel Tan · Session: 13 Aug 2026, 11:30 AM</p>
       </div>
     </div>
 
@@ -31,32 +31,29 @@
       <thead>
         <tr><th>Item</th><th class="right">Amount (RM)</th></tr>
       </thead>
-      <tbody>
-        <tr><td class="name">Sports massage therapy (60 min)</td><td class="right num">120.00</td></tr>
-        <tr><td class="name">Muscle relief gel</td><td class="right num">25.00</td></tr>
-        <tr><td>Membership discount (10%)</td><td class="right num amt-red">-14.50</td></tr>
-      </tbody>
+      <tbody id="billRows"></tbody>
     </table>
 
     <div class="invoice-summary">
-      <div class="line"><span>Subtotal</span><span>RM 145.00</span></div>
-      <div class="line total"><span>Total</span><span>RM 130.50</span></div>
+      <div class="line"><span>Subtotal</span><span id="billSub">RM 0.00</span></div>
+      <div class="line total"><span>Total</span><span id="billTotal">RM 0.00</span></div>
     </div>
 
-    <div style="display:flex; align-items:flex-end; margin-top:20px; gap:10px;">
+    <div id="billActions" style="display:flex; align-items:flex-end; margin-top:20px; gap:10px;">
       <div class="field" style="width:230px;">
-        <label>Payment method</label>
-        <select class="input">
+        <label for="payMethod">Payment method</label>
+        <select class="input" id="payMethod">
           <option>Credit / debit card</option>
           <option>Cash</option>
           <option>E-wallet</option>
         </select>
       </div>
       <div class="spacer" style="margin-left:auto;"></div>
-      <a class="btn btn-ghost" href="#"><svg class="icon"><use href="../icons.svg#printer"/></svg> Print</a>
-      <a class="btn" href="appointments.html">Confirm payment</a>
+      <button class="btn btn-ghost" id="btnPrint" type="button"><svg class="icon"><use href="../icons.svg#printer"/></svg> Print</button>
+      <button class="btn" id="btnPay" type="button">Confirm payment</button>
     </div>
   </main>
 </div>
+<script src="../app.js"></script>
 </body>
 </html>

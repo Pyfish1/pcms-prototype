@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div class="app">
+<div class="app" data-page="ther-schedule">
   <header class="topbar">
     <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
     <nav class="nav">
@@ -32,29 +32,7 @@
       <thead>
         <tr><th class="corner">Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr>
       </thead>
-      <tbody>
-        <tr>
-          <td class="time">9:00 AM</td>
-          <td><span class="slot slot-booked">R. Tan</span></td>
-          <td></td><td></td>
-          <td><span class="slot slot-blocked">Blocked</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="time">10:00 AM</td>
-          <td><span class="slot slot-booked">M. Wong</span></td>
-          <td></td>
-          <td><span class="slot slot-booked">J. Lee</span></td>
-          <td><span class="slot slot-blocked">Blocked</span></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="time">2:00 PM</td>
-          <td></td>
-          <td><span class="slot slot-booked">K. Devi</span></td>
-          <td></td><td></td><td></td>
-        </tr>
-      </tbody>
+      <tbody id="therSchedBody"></tbody>
     </table>
 
     <div class="legend">
@@ -66,12 +44,13 @@
 
     <h2 class="section" id="block">Block a time slot</h2>
     <div class="row" style="grid-template-columns: 1fr 1fr 1fr auto; align-items:end;">
-      <div class="field"><label>Date</label><input class="input" type="date"></div>
-      <div class="field"><label>From</label><input class="input" type="time"></div>
-      <div class="field"><label>To</label><input class="input" type="time"></div>
-      <button class="btn">Block</button>
+      <div class="field"><label for="blkDate">Date</label><input class="input" id="blkDate" type="date"></div>
+      <div class="field"><label for="blkFrom">From</label><input class="input" id="blkFrom" type="time"></div>
+      <div class="field"><label for="blkTo">To</label><input class="input" id="blkTo" type="time"></div>
+      <button class="btn" id="blkAdd" type="button">Block</button>
     </div>
   </main>
 </div>
+<script src="../app.js"></script>
 </body>
 </html>

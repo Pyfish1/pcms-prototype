@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div class="app">
+<div class="app" data-page="recept-schedule">
   <header class="topbar">
     <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
     <nav class="nav">
@@ -25,7 +25,7 @@
         <h1>Therapist schedule — week of 11 Aug</h1>
       </div>
       <div class="spacer"></div>
-      <select class="input" style="width:190px;">
+      <select class="input" id="schedFilter" style="width:190px;">
         <option>All therapists</option>
         <option>Dr. Amir Hassan</option>
         <option>Dr. Priya Nair</option>
@@ -36,28 +36,7 @@
       <thead>
         <tr><th class="corner"></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr>
       </thead>
-      <tbody>
-        <tr>
-          <td class="time">10:00 AM</td>
-          <td><span class="slot slot-booked two">A. Hassan<br>J. Lee</span></td>
-          <td></td>
-          <td><span class="slot slot-green two">P. Nair<br>M. Wong</span></td>
-          <td></td><td></td>
-        </tr>
-        <tr>
-          <td class="time">11:30 AM</td>
-          <td></td>
-          <td><span class="slot slot-booked two">A. Hassan<br>R. Tan</span></td>
-          <td></td><td></td>
-          <td><span class="slot slot-green two">P. Nair<br>C. Ooi</span></td>
-        </tr>
-        <tr>
-          <td class="time">2:00 PM</td>
-          <td></td><td></td>
-          <td><span class="slot slot-booked two">A. Hassan<br>K. Devi</span></td>
-          <td></td><td></td>
-        </tr>
-      </tbody>
+      <tbody id="schedBody"></tbody>
     </table>
 
     <div class="legend">
@@ -66,5 +45,6 @@
     </div>
   </main>
 </div>
+<script src="../app.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div class="app">
+<div class="app" data-page="booking">
   <header class="topbar">
     <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
     <nav class="nav">
@@ -29,13 +29,13 @@
 
     <div class="row row-2" style="margin-bottom:18px;">
       <div class="field">
-        <label>Customer name</label>
-        <input class="input" placeholder="Search customer...">
+        <label for="bkCustomer">Customer name</label>
+        <input class="input" id="bkCustomer" placeholder="Search customer...">
         <div class="muted" style="font-size:12.5px;">Not registered? <a href="register.html">Register new customer</a></div>
       </div>
       <div class="field">
-        <label>Service type</label>
-        <select class="input">
+        <label for="bkService">Service type</label>
+        <select class="input" id="bkService">
           <option>Sports massage therapy</option>
           <option>Post-surgery rehabilitation</option>
           <option>Chiropractic</option>
@@ -45,36 +45,38 @@
     </div>
 
     <div class="row row-3" style="margin-bottom:20px;">
-      <div class="field"><label>Date</label><input class="input" type="date"></div>
+      <div class="field"><label for="bkDate">Date</label><input class="input" id="bkDate" type="date"></div>
       <div class="field">
-        <label>Time slot</label>
-        <select class="input">
+        <label for="bkTime">Time slot</label>
+        <select class="input" id="bkTime">
           <option>9:00 AM</option>
           <option selected>10:00 AM</option>
           <option>11:00 AM</option>
+          <option>11:30 AM</option>
           <option>2:00 PM</option>
           <option>3:00 PM</option>
         </select>
       </div>
       <div class="field">
-        <label>Therapist</label>
-        <select class="input">
+        <label for="bkTherapist">Therapist</label>
+        <select class="input" id="bkTherapist">
           <option>Dr. Amir Hassan</option>
           <option>Dr. Priya Nair</option>
         </select>
       </div>
     </div>
 
-    <div class="banner banner-green">
+    <div class="banner banner-green" id="bkAvail">
       <span class="ico"><svg class="icon"><use href="../icons.svg#check"/></svg></span>
-      <span>Dr. Amir Hassan is available at this time.</span>
+      <span class="msg">Dr. Amir Hassan is available at this time.</span>
     </div>
 
     <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:22px;">
       <a class="btn btn-ghost" href="appointments.html">Cancel</a>
-      <a class="btn" href="appointments.html">Confirm booking</a>
+      <button class="btn" id="bkConfirm" type="button">Confirm booking</button>
     </div>
   </main>
 </div>
+<script src="../app.js"></script>
 </body>
 </html>
