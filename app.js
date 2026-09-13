@@ -1,4 +1,4 @@
-/* PCMS prototype — shared client logic.
+/* PCMS prototype: shared client logic.
    No dependencies, no backend. State lives in sessionStorage so it survives
    navigation between pages, but is wiped on a genuine page RELOAD (see below),
    which resets the app to its seed demo data. Close the tab and it's gone too. */
@@ -30,12 +30,12 @@
   function seed() {
     return {
       bookings: [
-        // --- today (13 Aug) — these populate the Appointments list AND the Wed column ---
+        // today (13 Aug): these fill the Appointments list and the Wed column
         { id: id(), date: '2026-08-13', time: '9:00 AM',  customer: 'Rachel Tan',   therapist: 'Dr. Amir Hassan', service: 'Sports massage therapy',      status: 'pending' },
         { id: id(), date: '2026-08-13', time: '10:00 AM', customer: 'Marcus Wong',  therapist: 'Dr. Amir Hassan', service: 'Sports massage therapy',      status: 'confirmed' },
         { id: id(), date: '2026-08-13', time: '11:30 AM', customer: 'Chloe Ooi',    therapist: 'Dr. Priya Nair',  service: 'Chiropractic',               status: 'arrived' },
         { id: id(), date: '2026-08-13', time: '2:00 PM',  customer: 'Kavitha Devi', therapist: 'Dr. Amir Hassan', service: 'Post-surgery rehabilitation', status: 'pending' },
-        // --- rest of the week — fill out the schedule grid ---
+        // rest of the week: fill out the schedule grid
         { id: id(), date: '2026-08-11', time: '10:00 AM', customer: 'Jason Lee',     therapist: 'Dr. Amir Hassan', service: 'Sports massage therapy', status: 'confirmed' },
         { id: id(), date: '2026-08-11', time: '10:00 AM', customer: 'Michelle Wong', therapist: 'Dr. Priya Nair',  service: 'Chiropractic',           status: 'confirmed' },
         { id: id(), date: '2026-08-12', time: '11:30 AM', customer: 'Rachel Tan',    therapist: 'Dr. Amir Hassan', service: 'Sports massage therapy', status: 'confirmed' },
@@ -233,7 +233,7 @@
       var act = el.dataset.act, bid = el.dataset.id, b = API.getBooking(bid);
       if (!b) return;
       if (act === 'confirm') { API.updateBooking(bid, { status: 'confirmed' });
-        toast('Booking confirmed — reminder sent to ' + b.customer, 'green'); render(); }
+        toast('Booking confirmed. Reminder sent to ' + b.customer, 'green'); render(); }
       else if (act === 'arrive') { API.updateBooking(bid, { status: 'arrived' });
         toast(b.customer + ' checked in'); render(); }
       else if (act === 'invoice') { API.setInvoice(bid); location.href = 'billing.html'; }
@@ -275,7 +275,7 @@
       e.preventDefault();
       var name = (cust.value || '').trim();
       if (!name) { toast('Enter a customer name first', 'red'); cust.focus(); return; }
-      if (!refreshAvail()) { toast('That slot is not available — pick another', 'red'); return; }
+      if (!refreshAvail()) { toast('That slot is not available, please pick another', 'red'); return; }
       var b = API.addBooking({
         date: date.value, time: time.value, customer: name,
         therapist: ther.value, service: svc.value, status: 'pending'
@@ -319,12 +319,12 @@
     if (blkAdd) blkAdd.addEventListener('click', function (e) {
       e.preventDefault();
       if (!blkDate.value || !blkFrom.value) { toast('Pick a date and a start time', 'red'); return; }
-      // <input type=time> gives 24h "HH:MM" — convert to the grid's "h:MM AM/PM"
+      // <input type=time> gives 24h "HH:MM", convert to the grid's "h:MM AM/PM"
       var parts = blkFrom.value.split(':'), h = +parts[0], mm = parts[1];
       var ap = h >= 12 ? 'PM' : 'AM', h12 = (h % 12) || 12;
       var t = h12 + ':' + mm + ' ' + ap;
       API.addBlock({ date: blkDate.value, time: t, therapist: ME });
-      toast('Time slot blocked — ' + prettyDate(blkDate.value) + ' ' + t, 'green');
+      toast('Time slot blocked for ' + prettyDate(blkDate.value) + ' ' + t, 'green');
       render();
     });
     render();
@@ -396,7 +396,7 @@
           '. Invoice closed for ' + esc(customer) + '.</span></div>' +
           '<a class="btn" href="appointments.html">Back to appointments</a>';
       }
-      toast('Payment recorded — RM ' + money(t.total), 'green');
+      toast('Payment recorded, RM ' + money(t.total), 'green');
     });
 
     render();
@@ -420,7 +420,7 @@
     var PRICES = { 'Muscle relief gel': 25, 'Anti-inflammatory tablet': 12, 'Pain relief spray': 18 };
     if (add && body) add.addEventListener('click', function (e) {
       e.preventDefault();
-      var name = med.value, d = (dose.value || '').trim() || '—', q = Math.max(1, +qty.value || 1);
+      var name = med.value, d = (dose.value || '').trim() || '-', q = Math.max(1, +qty.value || 1);
       var sub = (PRICES[name] || 0) * q;
       var tr = document.createElement('tr');
       tr.innerHTML = '<td class="name">' + esc(name) + '</td><td>' + esc(d) + '</td>' +
@@ -502,7 +502,7 @@
     }
     function heading(title) {
       return '<h2 class="section" style="margin-top:0;">' + esc(title) + ' · ' +
-        prettyDate(from.value) + ' – ' + prettyDate(to.value) + '</h2>';
+        prettyDate(from.value) + ' to ' + prettyDate(to.value) + '</h2>';
     }
     function empty() {
       return '<div class="banner banner-blue"><span class="ico"><svg class="icon">' +
@@ -635,12 +635,12 @@
       var el = e.target.closest('[data-edit]'); if (!el) return;
       e.preventDefault();
       var svc = el.closest('tr').querySelector('.name').textContent;
-      toast('Editing “' + svc + '” — not wired in this prototype');
+      toast('Editing “' + svc + '” is not available in this prototype');
     });
   };
 
   /* ======================================================================
-     Global fallback — every remaining button/link does *something*
+     Global fallback: every remaining button/link does something
      ====================================================================== */
   function wireFallback() {
     document.addEventListener('click', function (e) {
@@ -659,7 +659,7 @@
       // submit buttons handled by their own module already will have preventDefault'd
       var label = (el.textContent || '').replace(/\s+/g, ' ').trim() || 'This control';
       e.preventDefault();
-      toast('"' + label + '" — not wired in this prototype');
+      toast('"' + label + '" is not available in this prototype');
     });
   }
 
