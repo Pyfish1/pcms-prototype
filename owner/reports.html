@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app" data-page="reports">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="staff.html">Staff accounts</a>
+      <a href="services.html">Services</a>
+      <a class="active" href="reports.html">Reports</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> Mr. Jared · Owner</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Report generation</h1>
+        <p>Choose a report type and date range, then generate the results as a table and chart.</p>
+      </div>
+    </div>
+
+    <div class="row" style="grid-template-columns: 1.4fr 1fr 1fr auto; align-items:end;">
+      <div class="field">
+        <label for="rpType">Report type</label>
+        <select class="input" id="rpType">
+          <option value="sales">Sales summary</option>
+          <option value="appointments">Appointments</option>
+          <option value="customers">Customer records</option>
+          <option value="workload">Therapist workload</option>
+        </select>
+      </div>
+      <div class="field"><label for="rpFrom">From</label><input class="input" id="rpFrom" type="date"></div>
+      <div class="field"><label for="rpTo">To</label><input class="input" id="rpTo" type="date"></div>
+      <button class="btn" id="rpGenerate" type="button"><svg class="icon"><use href="../icons.svg#check"/></svg> Generate report</button>
+    </div>
+
+    <div id="reportOut" style="margin-top:26px;">
+      <div class="banner banner-blue">
+        <span class="ico"><svg class="icon"><use href="../icons.svg#info"/></svg></span>
+        <span>Select a report type and date range above, then click <strong>Generate report</strong> to view results.</span>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../app.js"></script>
+</body>
+</html>

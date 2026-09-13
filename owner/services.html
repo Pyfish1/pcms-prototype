@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services — PCMS</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app" data-page="services">
+  <header class="topbar">
+    <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>PCMS — HoneyBee<br><small>Physiotherapy</small></span></a>
+    <nav class="nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="staff.html">Staff accounts</a>
+      <a class="active" href="services.html">Services</a>
+      <a href="reports.html">Reports</a>
+    </nav>
+    <div class="user"><svg class="icon avatar"><use href="../icons.svg#user"/></svg> Mr. Jared · Owner</div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <h1>Physiotherapy services</h1>
+        <p>The treatments the centre offers. These feed the booking form and invoice pricing.</p>
+      </div>
+    </div>
+
+    <div class="row" style="grid-template-columns: 1.6fr 1fr 1fr auto; align-items:end;">
+      <div class="field"><label for="svcName">Service name</label><input class="input" id="svcName" placeholder="e.g. Dry needling"></div>
+      <div class="field"><label for="svcCharge">Charge (RM)</label><input class="input" id="svcCharge" type="number" min="0" placeholder="e.g. 110"></div>
+      <div class="field"><label for="svcDuration">Duration (min)</label><input class="input" id="svcDuration" type="number" min="0" placeholder="e.g. 60"></div>
+      <button class="btn" id="svcAdd" type="button"><svg class="icon"><use href="../icons.svg#plus"/></svg> Add service</button>
+    </div>
+
+    <table class="data" style="margin-top:20px;">
+      <thead>
+        <tr><th>Service</th><th class="right">Charge (RM)</th><th>Duration</th><th class="right"></th></tr>
+      </thead>
+      <tbody id="svcRows">
+        <tr><td class="name">Sports massage therapy</td><td class="right num">120.00</td><td>60 min</td><td class="right"><a href="#" data-edit>Edit</a></td></tr>
+        <tr><td class="name">Post-surgery rehabilitation</td><td class="right num">150.00</td><td>75 min</td><td class="right"><a href="#" data-edit>Edit</a></td></tr>
+        <tr><td class="name">Chiropractic</td><td class="right num">90.00</td><td>45 min</td><td class="right"><a href="#" data-edit>Edit</a></td></tr>
+        <tr><td class="name">Scoliosis treatment</td><td class="right num">200.00</td><td>60 min</td><td class="right"><a href="#" data-edit>Edit</a></td></tr>
+      </tbody>
+    </table>
+
+    <div class="banner banner-blue">
+      <span class="ico"><svg class="icon"><use href="../icons.svg#info"/></svg></span>
+      <span>Adding a service makes it available when receptionists book appointments and when invoices are priced.</span>
+    </div>
+  </main>
+</div>
+<script src="../app.js"></script>
+</body>
+</html>

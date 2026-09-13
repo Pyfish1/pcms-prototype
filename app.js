@@ -466,6 +466,179 @@
     });
   };
 
+  /* ---------- Owner: report generation ---------- */
+  function barChart(rows) {
+    var max = Math.max.apply(null, rows.map(function (r) { return r.value; }).concat([1]));
+    return '<div class="bar-chart">' + rows.map(function (r) {
+      var pct = Math.round(r.value / max * 100);
+      return '<div class="bar-row"><div class="bar-label">' + esc(r.label) + '</div>' +
+        '<div class="bar-track"><div class="bar-fill"' + (r.green ? ' style="width:' + pct + '%;background:var(--green)"' : ' style="width:' + pct + '%"') + '></div></div>' +
+        '<div class="bar-val">' + esc(r.display != null ? r.display : r.value) + '</div></div>';
+    }).join('') + '</div>';
+  }
+  function statRow(cards) {
+    return '<div class="stat-grid" style="grid-template-columns:repeat(' + cards.length + ',1fr);">' +
+      cards.map(function (c) {
+        return '<div class="stat-card"><div class="label">' + esc(c.label) + '</div>' +
+          '<div class="value' + (c.cls ? ' ' + c.cls : '') + '">' + esc(c.value) + '</div></div>';
+      }).join('') + '</div>';
+  }
+  pages['reports'] = function () {
+    var type = document.getElementById('rpType');
+    var from = document.getElementById('rpFrom');
+    var to = document.getElementById('rpTo');
+    var gen = document.getElementById('rpGenerate');
+    var out = document.getElementById('reportOut');
+    if (!gen) return;
+
+    // default to the seed demo week
+    if (from && !from.value) from.value = '2026-08-11';
+    if (to && !to.value) to.value = '2026-08-15';
+
+    function priceOf(b) { return (SERVICES[b.service] || { price: 0 }).price; }
+    function minsOf(b) { return (SERVICES[b.service] || { mins: 0 }).mins; }
+    function inRange(b) {
+      return (!from.value || b.date >= from.value) && (!to.value || b.date <= to.value);
+    }
+    function heading(title) {
+      return '<h2 class="section" style="margin-top:0;">' + esc(title) + ' · ' +
+        prettyDate(from.value) + ' – ' + prettyDate(to.value) + '</h2>';
+    }
+    function empty() {
+      return '<div class="banner banner-blue"><span class="ico"><svg class="icon">' +
+        '<use href="../icons.svg#info"/></svg></span><span>No records in the selected date range.</span></div>';
+    }
+
+    var builders = {
+      sales: function (rows) {
+        var byService = {};
+        rows.forEach(function (b) {
+          var s = byService[b.service] = byService[b.service] || { n: 0, rev: 0 };
+          s.n++; s.rev += priceOf(b);
+        });
+        var keys = Object.keys(byService).sort(function (a, b) { return byService[b].rev - byService[a].rev; });
+        var total = rows.reduce(function (s, b) { return s + priceOf(b); }, 0);
+        var body = keys.map(function (k) {
+          return '<tr><td class="name">' + esc(k) + '</td><td class="num">' + byService[k].n +
+            '</td><td class="right num">' + money(byService[k].rev) + '</td></tr>';
+        }).join('');
+        return heading('Sales summary') +
+          statRow([
+            { label: 'Total sales', value: 'RM ' + money(total) },
+            { label: 'Sessions billed', value: String(rows.length) },
+            { label: 'Services sold', value: String(keys.length) }
+          ]) +
+          '<table class="data" style="margin-top:20px;"><thead><tr><th>Service</th><th>Sessions</th>' +
+          '<th class="right">Revenue (RM)</th></tr></thead><tbody>' + body +
+          '<tr><td class="name">Total</td><td class="num">' + rows.length +
+          '</td><td class="right num">' + money(total) + '</td></tr></tbody></table>' +
+          '<h2 class="section">Revenue by service</h2>' +
+          barChart(keys.map(function (k) { return { label: k, value: byService[k].rev, display: 'RM ' + money(byService[k].rev) }; }));
+      },
+      appointments: function (rows) {
+        var byStatus = {};
+        rows.forEach(function (b) { byStatus[b.status] = (byStatus[b.status] || 0) + 1; });
+        rows = rows.slice().sort(function (a, b) {
+          return a.date === b.date ? toMin(a.time) - toMin(b.time) : (a.date < b.date ? -1 : 1);
+        });
+        var body = rows.map(function (b) {
+          return '<tr><td>' + prettyDate(b.date) + '</td><td><strong>' + esc(b.time) +
+            '</strong></td><td class="name">' + esc(b.customer) + '</td><td>' + esc(b.therapist) +
+            '</td><td>' + esc(b.service) + '</td><td>' + esc(cap(b.status)) + '</td></tr>';
+        }).join('');
+        return heading('Appointments') +
+          statRow([
+            { label: 'Total appointments', value: String(rows.length) },
+            { label: 'Confirmed', value: String((byStatus.confirmed || 0) + (byStatus.arrived || 0) + (byStatus.paid || 0)) },
+            { label: 'Pending', value: String(byStatus.pending || 0), cls: 'value-red' }
+          ]) +
+          '<table class="data" style="margin-top:20px;"><thead><tr><th>Date</th><th>Time</th><th>Customer</th>' +
+          '<th>Therapist</th><th>Service</th><th>Status</th></tr></thead><tbody>' + body + '</tbody></table>';
+      },
+      customers: function (rows) {
+        var byCust = {};
+        rows.forEach(function (b) {
+          var c = byCust[b.customer] = byCust[b.customer] || { n: 0, svc: {}, last: b.date };
+          c.n++; c.svc[b.service] = 1; if (b.date > c.last) c.last = b.date;
+        });
+        var keys = Object.keys(byCust).sort(function (a, b) { return byCust[b].n - byCust[a].n; });
+        var body = keys.map(function (k) {
+          return '<tr><td class="name">' + esc(k) + '</td><td class="num">' + byCust[k].n +
+            '</td><td>' + esc(Object.keys(byCust[k].svc).join(', ')) + '</td><td>' + prettyDate(byCust[k].last) + '</td></tr>';
+        }).join('');
+        return heading('Customer records') +
+          statRow([
+            { label: 'Customers seen', value: String(keys.length) },
+            { label: 'Total visits', value: String(rows.length) }
+          ]) +
+          '<table class="data" style="margin-top:20px;"><thead><tr><th>Customer</th><th>Sessions</th>' +
+          '<th>Services taken</th><th>Last visit</th></tr></thead><tbody>' + body + '</tbody></table>';
+      },
+      workload: function (rows) {
+        var byT = {};
+        THERAPISTS.forEach(function (t) { byT[t] = { n: 0, mins: 0, rev: 0 }; });
+        rows.forEach(function (b) {
+          var t = byT[b.therapist] = byT[b.therapist] || { n: 0, mins: 0, rev: 0 };
+          t.n++; t.mins += minsOf(b); t.rev += priceOf(b);
+        });
+        var keys = Object.keys(byT).filter(function (k) { return byT[k].n > 0; })
+          .sort(function (a, b) { return byT[b].n - byT[a].n; });
+        var body = keys.map(function (k) {
+          return '<tr><td class="name">' + esc(k) + '</td><td class="num">' + byT[k].n +
+            '</td><td class="num">' + (byT[k].mins / 60).toFixed(1) + '</td><td class="right num">' +
+            money(byT[k].rev) + '</td></tr>';
+        }).join('');
+        return heading('Therapist workload') +
+          '<table class="data" style="margin-top:4px;"><thead><tr><th>Therapist</th><th>Sessions</th>' +
+          '<th>Hours</th><th class="right">Revenue (RM)</th></tr></thead><tbody>' + body + '</tbody></table>' +
+          '<h2 class="section">Sessions per therapist</h2>' +
+          barChart(keys.map(function (k, i) { return { label: k, value: byT[k].n, green: i % 2 === 1 }; }));
+      }
+    };
+    function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+
+    function generate() {
+      if (from.value && to.value && from.value > to.value) {
+        out.innerHTML = '<div class="banner banner-red"><span class="ico"><svg class="icon">' +
+          '<use href="../icons.svg#warning"/></svg></span><span>The “From” date is after the “To” date.</span></div>';
+        return;
+      }
+      var rows = API.bookings().filter(inRange);
+      if (!rows.length) { out.innerHTML = heading(type.options[type.selectedIndex].text) + empty(); return; }
+      out.innerHTML = builders[type.value](rows);
+      toast('Report generated: ' + type.options[type.selectedIndex].text, 'green');
+    }
+    gen.addEventListener('click', function (e) { e.preventDefault(); generate(); });
+  };
+
+  /* ---------- Owner: services catalogue ---------- */
+  pages['services'] = function () {
+    var name = document.getElementById('svcName');
+    var charge = document.getElementById('svcCharge');
+    var dur = document.getElementById('svcDuration');
+    var add = document.getElementById('svcAdd');
+    var body = document.getElementById('svcRows');
+    if (!add || !body) return;
+    add.addEventListener('click', function (e) {
+      e.preventDefault();
+      var n = (name.value || '').trim();
+      if (!n) { toast('Enter a service name', 'red'); name.focus(); return; }
+      var c = Math.max(0, +charge.value || 0), d = Math.max(0, +dur.value || 0);
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td class="name">' + esc(n) + '</td><td class="right num">' + money(c) +
+        '</td><td>' + d + ' min</td><td class="right"><a href="#" data-edit>Edit</a></td>';
+      body.appendChild(tr);
+      name.value = ''; charge.value = ''; dur.value = '';
+      toast('Service added: ' + n, 'green');
+    });
+    body.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-edit]'); if (!el) return;
+      e.preventDefault();
+      var svc = el.closest('tr').querySelector('.name').textContent;
+      toast('Editing “' + svc + '” — not wired in this prototype');
+    });
+  };
+
   /* ======================================================================
      Global fallback — every remaining button/link does *something*
      ====================================================================== */
