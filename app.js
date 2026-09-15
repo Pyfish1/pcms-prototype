@@ -27,8 +27,17 @@
   var uid = 0;
   function id() { return 'b' + (++uid) + '_' + Date.now().toString(36); }
 
+  function defaultCustomers() {
+    return [
+      { id: id(), name: 'Rachel Tan',  contact: '012-345 6789', lastVisit: '2026-08-13', sessions: 8 },
+      { id: id(), name: 'Marcus Wong', contact: '016-778 2231', lastVisit: '2026-08-10', sessions: 3 },
+      { id: id(), name: 'Chloe Ooi',   contact: '019-902 4471', lastVisit: '2026-08-02', sessions: 1 }
+    ];
+  }
+
   function seed() {
     return {
+      customers: defaultCustomers(),
       bookings: [
         // today (13 Aug): these fill the Appointments list and the Wed column
         { id: id(), date: '2026-08-13', time: '9:00 AM',  customer: 'Rachel Tan',   therapist: 'Dr. Amir Hassan', service: 'Sports massage therapy',      status: 'pending' },
@@ -50,6 +59,7 @@
 
   var state = load();
   if (!state) { state = seed(); save(state); }
+  if (!state.customers) { state.customers = defaultCustomers(); save(state); }
 
   /* ---- reference data ---- */
   var SERVICES = {
@@ -130,6 +140,11 @@
       return state.bookings.filter(function (x) { return x.id === bid; })[0];
     },
     addBlock: function (bl) { bl.id = id(); state.blocks.push(bl); save(state); return bl; },
+    customers: function () { return state.customers.slice(); },
+    addCustomer: function (c) {
+      c.id = id(); c.sessions = c.sessions || 0; c.lastVisit = c.lastVisit || null;
+      state.customers.unshift(c); save(state); return c;
+    },
     setInvoice: function (bid) { try { sessionStorage.setItem('pcms_invoice', bid); } catch (e) {} },
     takeInvoice: function () {
       try { var v = sessionStorage.getItem('pcms_invoice'); return v; } catch (e) { return null; }
@@ -434,25 +449,44 @@
   pages['register'] = function () {
     var save = document.getElementById('saveCustomer');
     var name = document.getElementById('regName');
+    var contact = document.getElementById('regContact');
+    var ic = document.getElementById('regIc');
     if (save) save.addEventListener('click', function (e) {
       e.preventDefault();
       if (name && !name.value.trim()) { toast('Enter the customer name', 'red'); name.focus(); return; }
-      sessionStorage.setItem('pcms_flash_cust', (name ? name.value.trim() : 'Customer') + ' registered');
+      API.addCustomer({
+        name: name.value.trim(),
+        contact: (contact && contact.value.trim()) || '',
+        ic: (ic && ic.value.trim()) || ''
+      });
+      sessionStorage.setItem('pcms_flash_cust', name.value.trim() + ' registered');
       location.href = 'customers.html';
     });
   };
   pages['customers'] = function () {
     var f = sessionStorage.getItem('pcms_flash_cust');
     if (f) { toast(f, 'green'); sessionStorage.removeItem('pcms_flash_cust'); }
+    var body = document.getElementById('custRows');
     var box = document.getElementById('custSearch');
     var btn = document.getElementById('custSearchBtn');
-    var rows = document.querySelectorAll('#custRows tr');
+    if (!body) return;
+
+    function render() {
+      body.innerHTML = API.customers().map(function (c) {
+        return '<tr><td class="name">' + esc(c.name) + '</td>' +
+          '<td>' + esc(c.contact || '—') + '</td>' +
+          '<td>' + (c.lastVisit ? prettyDate(c.lastVisit) : 'New') + '</td>' +
+          '<td class="num">' + (c.sessions || 0) + '</td>' +
+          '<td class="right"><a href="#">View profile</a></td></tr>';
+      }).join('');
+    }
     function filter() {
       var q = (box.value || '').toLowerCase();
-      rows.forEach(function (r) {
+      [].forEach.call(body.querySelectorAll('tr'), function (r) {
         r.style.display = r.textContent.toLowerCase().indexOf(q) >= 0 ? '' : 'none';
       });
     }
+    render();
     if (box) box.addEventListener('input', filter);
     if (btn) btn.addEventListener('click', function (e) { e.preventDefault(); filter(); });
   };
