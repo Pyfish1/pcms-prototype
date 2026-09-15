@@ -420,8 +420,23 @@
   /* ---------- Therapist: treatment record ---------- */
   pages['treatment'] = function () {
     var save = document.getElementById('saveRecord');
+    var diag = document.getElementById('trDiagnosis');
+    var notes = document.getElementById('trNotes');
+    var pain = document.getElementById('trPain');
+    var hist = document.getElementById('trHistory');
     if (save) save.addEventListener('click', function (e) {
-      e.preventDefault(); toast('Treatment record saved', 'green');
+      e.preventDefault();
+      if (diag && !diag.value.trim()) { toast('Enter a diagnosis first', 'red'); diag.focus(); return; }
+      if (hist) {
+        var body = (notes && notes.value.trim()) || (diag && diag.value.trim()) || 'Session recorded.';
+        var card = document.createElement('div');
+        card.className = 'history-card';
+        card.innerHTML = '<div class="hc-head"><span>' + prettyDate(TODAY) + '</span>' +
+          '<span>Pain: ' + ((pain && pain.value) || '0') + '/10</span></div>' +
+          '<div class="hc-body">' + esc(body) + '</div>';
+        hist.insertBefore(card, hist.firstChild);
+      }
+      toast('Treatment record saved', 'green');
     });
   };
 
@@ -432,6 +447,7 @@
     var qty = document.getElementById('medQty');
     var add = document.getElementById('medAdd');
     var body = document.getElementById('medRows');
+    var inv = document.getElementById('medInv');
     var PRICES = { 'Muscle relief gel': 25, 'Anti-inflammatory tablet': 12, 'Pain relief spray': 18 };
     if (add && body) add.addEventListener('click', function (e) {
       e.preventDefault();
@@ -441,7 +457,21 @@
       tr.innerHTML = '<td class="name">' + esc(name) + '</td><td>' + esc(d) + '</td>' +
         '<td class="num">' + q + '</td><td class="right num">' + money(sub) + '</td>';
       body.appendChild(tr);
-      toast('Added ' + name + ' to prescription', 'green');
+      // deduct the prescribed quantity from the inventory table and update the status pill
+      if (inv) {
+        [].forEach.call(inv.querySelectorAll('tr'), function (row) {
+          if (row.querySelector('.name').textContent === name) {
+            var cells = row.querySelectorAll('td');
+            var reorder = +cells[2].textContent;
+            var stock = Math.max(0, (+cells[1].textContent) - q);
+            cells[1].textContent = stock;
+            var pill = row.querySelector('.pill');
+            if (stock < reorder) { pill.className = 'pill pill-red'; pill.textContent = 'Low stock'; }
+            else { pill.className = 'pill pill-green'; pill.textContent = 'OK'; }
+          }
+        });
+      }
+      toast('Added ' + name + ' to prescription; stock updated', 'green');
     });
   };
 
@@ -474,10 +504,10 @@
     function render() {
       body.innerHTML = API.customers().map(function (c) {
         return '<tr><td class="name">' + esc(c.name) + '</td>' +
-          '<td>' + esc(c.contact || '—') + '</td>' +
+          '<td>' + esc(c.contact || '-') + '</td>' +
           '<td>' + (c.lastVisit ? prettyDate(c.lastVisit) : 'New') + '</td>' +
           '<td class="num">' + (c.sessions || 0) + '</td>' +
-          '<td class="right"><a href="#">View profile</a></td></tr>';
+          '<td class="right"><a href="#" data-view>View profile</a></td></tr>';
       }).join('');
     }
     function filter() {
@@ -486,6 +516,12 @@
         r.style.display = r.textContent.toLowerCase().indexOf(q) >= 0 ? '' : 'none';
       });
     }
+    body.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-view]'); if (!el) return;
+      e.preventDefault();
+      var td = el.closest('tr').querySelectorAll('td');
+      toast(td[0].textContent + ' · ' + td[1].textContent + ' · last visit ' + td[2].textContent + ' · ' + td[3].textContent + ' sessions');
+    });
     render();
     if (box) box.addEventListener('input', filter);
     if (btn) btn.addEventListener('click', function (e) { e.preventDefault(); filter(); });
@@ -653,23 +689,70 @@
     var add = document.getElementById('svcAdd');
     var body = document.getElementById('svcRows');
     if (!add || !body) return;
+    var addHtml = add.innerHTML, editing = null;
+
+    function setMode(row) {
+      editing = row;
+      add.innerHTML = row ? 'Update service' : addHtml;
+    }
     add.addEventListener('click', function (e) {
       e.preventDefault();
       var n = (name.value || '').trim();
       if (!n) { toast('Enter a service name', 'red'); name.focus(); return; }
       var c = Math.max(0, +charge.value || 0), d = Math.max(0, +dur.value || 0);
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td class="name">' + esc(n) + '</td><td class="right num">' + money(c) +
-        '</td><td>' + d + ' min</td><td class="right"><a href="#" data-edit>Edit</a></td>';
-      body.appendChild(tr);
+      if (editing) {
+        var cells = editing.children;
+        cells[0].textContent = n; cells[1].textContent = money(c); cells[2].textContent = d + ' min';
+        toast('Service updated: ' + n, 'green');
+        setMode(null);
+      } else {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td class="name">' + esc(n) + '</td><td class="right num">' + money(c) +
+          '</td><td>' + d + ' min</td><td class="right"><a href="#" data-edit>Edit</a></td>';
+        body.appendChild(tr);
+        toast('Service added: ' + n, 'green');
+      }
       name.value = ''; charge.value = ''; dur.value = '';
-      toast('Service added: ' + n, 'green');
     });
     body.addEventListener('click', function (e) {
       var el = e.target.closest('[data-edit]'); if (!el) return;
       e.preventDefault();
-      var svc = el.closest('tr').querySelector('.name').textContent;
-      toast('Editing “' + svc + '” is not available in this prototype');
+      var tr = el.closest('tr');
+      name.value = tr.children[0].textContent;
+      charge.value = parseFloat(tr.children[1].textContent) || '';
+      dur.value = parseInt(tr.children[2].textContent, 10) || '';
+      setMode(tr); name.focus();
+      toast('Editing ' + tr.children[0].textContent + ', change the fields and click Update service', 'green');
+    });
+  };
+
+  /* ---------- Owner: staff accounts ---------- */
+  pages['staff'] = function () {
+    var name = document.getElementById('stName');
+    var role = document.getElementById('stRole');
+    var add = document.getElementById('stAdd');
+    var body = document.getElementById('staffRows');
+    if (!add || !body) return;
+    add.addEventListener('click', function (e) {
+      e.preventDefault();
+      var n = (name.value || '').trim();
+      if (!n) { toast('Enter a staff name', 'red'); name.focus(); return; }
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td class="name">' + esc(n) + '</td><td>' + esc(role.value) + '</td>' +
+        '<td><span class="pill pill-green">Active</span></td>' +
+        '<td class="right"><a href="#" data-toggle>Edit</a></td>';
+      body.appendChild(tr);
+      name.value = '';
+      toast('Staff account added: ' + n, 'green');
+    });
+    body.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-toggle]'); if (!el) return;
+      e.preventDefault();
+      var tr = el.closest('tr'), pill = tr.querySelector('.pill');
+      var active = pill.textContent.trim() === 'Active';
+      if (active) { pill.className = 'pill pill-grey'; pill.textContent = 'Deactivated'; }
+      else { pill.className = 'pill pill-green'; pill.textContent = 'Active'; }
+      toast(tr.querySelector('.name').textContent + (active ? ' deactivated' : ' reactivated'), 'green');
     });
   };
 

@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<div class="app">
+<div class="app" data-page="staff">
   <header class="topbar">
     <a class="brand" href="../index.html"><span class="brand-icon"><svg class="icon"><use href="../icons.svg#stethoscope"/></svg></span><span>HoneyBee<br><small>Physiotherapy</small></span></a>
     <nav class="nav">
@@ -22,18 +22,25 @@
   <main>
     <div class="page-head">
       <div><h1>Staff accounts</h1></div>
-      <div class="spacer"></div>
-      <a class="btn" href="#"><svg class="icon"><use href="../icons.svg#plus"/></svg> Add staff</a>
     </div>
 
-    <table class="data">
+    <div class="row" style="grid-template-columns: 1.6fr 1fr auto; align-items:end;">
+      <div class="field"><label for="stName">Name</label><input class="input" id="stName" placeholder="e.g. Dr. Lim Wei Sheng"></div>
+      <div class="field">
+        <label for="stRole">Role</label>
+        <select class="input" id="stRole"><option>Therapist</option><option>Receptionist</option></select>
+      </div>
+      <button class="btn" id="stAdd" type="button"><svg class="icon"><use href="../icons.svg#plus"/></svg> Add staff</button>
+    </div>
+
+    <table class="data" style="margin-top:20px;">
       <thead>
         <tr><th>Name</th><th>Role</th><th>Status</th><th class="right"></th></tr>
       </thead>
-      <tbody>
-        <tr><td class="name">Dr. Amir Hassan</td><td>Therapist</td><td><span class="pill pill-green">Active</span></td><td class="right"><a href="#">Edit</a></td></tr>
-        <tr><td class="name">Dr. Priya Nair</td><td>Therapist</td><td><span class="pill pill-green">Active</span></td><td class="right"><a href="#">Edit</a></td></tr>
-        <tr><td class="name">Sarah Lim</td><td>Receptionist</td><td><span class="pill pill-grey">Deactivated</span></td><td class="right"><a href="#">Edit</a></td></tr>
+      <tbody id="staffRows">
+        <tr><td class="name">Dr. Amir Hassan</td><td>Therapist</td><td><span class="pill pill-green">Active</span></td><td class="right"><a href="#" data-toggle>Edit</a></td></tr>
+        <tr><td class="name">Dr. Priya Nair</td><td>Therapist</td><td><span class="pill pill-green">Active</span></td><td class="right"><a href="#" data-toggle>Edit</a></td></tr>
+        <tr><td class="name">Sarah Lim</td><td>Receptionist</td><td><span class="pill pill-grey">Deactivated</span></td><td class="right"><a href="#" data-toggle>Edit</a></td></tr>
       </tbody>
     </table>
 

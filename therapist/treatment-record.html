@@ -32,15 +32,15 @@
     <div class="split">
       <div>
         <div class="field" style="margin-bottom:18px;">
-          <label>Diagnosis</label>
-          <input class="input" placeholder="e.g. Lower back muscle strain">
+          <label for="trDiagnosis">Diagnosis</label>
+          <input class="input" id="trDiagnosis" placeholder="e.g. Lower back muscle strain">
         </div>
         <div class="field" style="margin-bottom:18px;">
-          <label>Clinical observation / notes</label>
-          <textarea class="input" rows="4" placeholder="Describe the session findings..."></textarea>
+          <label for="trNotes">Clinical observation / notes</label>
+          <textarea class="input" id="trNotes" rows="4" placeholder="Describe the session findings..."></textarea>
         </div>
         <div class="row row-2" style="margin-bottom:18px;">
-          <div class="field"><label>Pain level (0-10)</label><input class="input" type="number" min="0" max="10" value="4"></div>
+          <div class="field"><label for="trPain">Pain level (0-10)</label><input class="input" id="trPain" type="number" min="0" max="10" value="4"></div>
           <div class="field"><label>Range of motion (°)</label><input class="input" type="number" value="65"></div>
         </div>
         <div class="field" style="margin-bottom:18px;">
@@ -56,13 +56,15 @@
 
       <div>
         <h2 class="section" style="margin-top:0;">Previous treatment history</h2>
-        <div class="history-card">
-          <div class="hc-head"><span>6 Aug 2026</span><span>Pain: 6/10</span></div>
-          <div class="hc-body">Mild improvement in lower back flexibility, continued strain noted.</div>
-        </div>
-        <div class="history-card">
-          <div class="hc-head"><span>30 Jul 2026</span><span>Pain: 7/10</span></div>
-          <div class="hc-body">Initial assessment, muscle stiffness in lumbar region.</div>
+        <div id="trHistory">
+          <div class="history-card">
+            <div class="hc-head"><span>6 Aug 2026</span><span>Pain: 6/10</span></div>
+            <div class="hc-body">Mild improvement in lower back flexibility, continued strain noted.</div>
+          </div>
+          <div class="history-card">
+            <div class="hc-head"><span>30 Jul 2026</span><span>Pain: 7/10</span></div>
+            <div class="hc-body">Initial assessment, muscle stiffness in lumbar region.</div>
+          </div>
         </div>
       </div>
     </div>
