@@ -204,10 +204,20 @@
     var tbody = document.getElementById('apptRows');
     var chipPending = document.getElementById('chipPending');
     var chipConfirmed = document.getElementById('chipConfirmed');
+    var dateInput = document.getElementById('apptDate');
+    var head = document.getElementById('apptHead');
     if (!tbody) return;
 
+    // focus on the date just booked (if any), otherwise today
+    var focus = sessionStorage.getItem('pcms_appt_date') || TODAY;
+    sessionStorage.removeItem('pcms_appt_date');
+    if (dateInput) dateInput.value = focus;
+    function activeDate() { return (dateInput && dateInput.value) || focus; }
+
     function render() {
-      var list = API.bookings().filter(function (b) { return b.date === TODAY; })
+      var d = activeDate();
+      if (head) head.textContent = (d === TODAY ? "Today's appointments, " : 'Appointments, ') + prettyDate(d);
+      var list = API.bookings().filter(function (b) { return b.date === d; })
         .sort(function (a, b) { return toMin(a.time) - toMin(b.time); });
 
       var nP = 0, nC = 0;
@@ -230,7 +240,7 @@
           '<td>' + pill(b.status) + '</td>' +
           '<td class="right">' + action + '</td></tr>';
       }).join('') || '<tr><td colspan="5" class="muted" style="text-align:center;padding:26px;">' +
-        'No appointments today. <a href="booking.html">Book one</a>.</td></tr>';
+        'No appointments on this date. <a href="booking.html">Book one</a>.</td></tr>';
 
       if (chipPending) chipPending.textContent = nP + ' pending';
       if (chipConfirmed) chipConfirmed.textContent = nC + ' confirmed';
@@ -253,6 +263,8 @@
         toast(b.customer + ' checked in'); render(); }
       else if (act === 'invoice') { API.setInvoice(bid); location.href = 'billing.html'; }
     });
+
+    if (dateInput) dateInput.addEventListener('change', render);
 
     if (sessionStorage.getItem('pcms_flash')) {
       toast(sessionStorage.getItem('pcms_flash'), 'green');
@@ -298,6 +310,7 @@
       var msg = 'Appointment booked: ' + name + ' with ' + b.therapist +
         ', ' + prettyDate(b.date) + ' ' + b.time;
       sessionStorage.setItem('pcms_flash', msg);
+      sessionStorage.setItem('pcms_appt_date', b.date);
       location.href = 'appointments.html';
     });
   };

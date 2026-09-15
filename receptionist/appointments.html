@@ -20,12 +20,13 @@
   </header>
 
   <main>
-    <div class="page-head">
+    <div class="page-head" style="align-items:center;">
       <div>
-        <h1>Today's appointments for 13 Aug 2026</h1>
+        <h1 id="apptHead">Appointments</h1>
         <p>Confirm pending bookings or check in arriving customers.</p>
       </div>
       <div class="spacer"></div>
+      <input class="input" id="apptDate" type="date" style="width:150px; margin-right:12px;">
       <span class="chip chip-amber" id="chipPending">0 pending</span>
       <span class="chip chip-blue" id="chipConfirmed" style="margin-left:8px;">0 confirmed</span>
       <a class="btn btn-ghost" href="booking.html" style="margin-left:12px;"><svg class="icon"><use href="../icons.svg#plus"/></svg> Book appointment</a>
